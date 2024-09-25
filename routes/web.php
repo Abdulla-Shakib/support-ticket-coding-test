@@ -36,9 +36,9 @@ Route::middleware('auth')->group(function () {
 //     Route::post('/admin/tickets/close/{ticket}', [AdminTicketController::class, 'close']);
 // });
 
-Route::middleware(['customer'])->group(function () {
-    Route::resource('customer-tickets', CustomerTicketController::class);
-});
+// Route::middleware(['customer'])->group(function () {
+Route::resource('customer-tickets', CustomerTicketController::class);
+// });
 
 
 

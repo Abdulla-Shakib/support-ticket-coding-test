@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Customer;
 use Illuminate\Http\Request;
 use App\Models\CustomerTicket;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Brian2694\Toastr\Facades\Toastr;
 
 class CustomerTicketController extends Controller
 {
@@ -13,7 +15,8 @@ class CustomerTicketController extends Controller
      */
     public function index()
     {
-        //
+        $tickets = CustomerTicket::latest()->paginate(10);
+        return view('backend.customer.ticket.index', compact('tickets'));
     }
 
     /**
@@ -21,15 +24,32 @@ class CustomerTicketController extends Controller
      */
     public function create()
     {
-        //
+        return view('backend.customer.ticket.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request, CustomerTicket $customerTicket)
     {
-        //
+        try {
+            $requestedData = $request->validate([
+                'subject' => 'required',
+                'description' => 'required',
+            ]);;
+
+            $requestedData['user_id'] = Auth::id();
+
+            $requestedData = $customerTicket->fill($requestedData)->save();
+            Toastr::success('Inserted successfully');
+            return redirect()->back();
+
+            // return redirect()->route('admin.book.index');
+        } catch (\Throwable $e) {
+            dd($e->getmessage());
+            // Toastr::error('Something went wrong');
+            return redirect()->back();
+        }
     }
 
     /**

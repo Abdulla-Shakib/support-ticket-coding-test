@@ -13,26 +13,16 @@
     <ul class="metismenu" id="menu">
         <li>
             <a href="javascript:;" class="has-arrow">
-                <div class="parent-icon"><i class='bx bx-home-circle'></i>
+                <div class="parent-icon"><i class='bx bxs-graduation'></i>
                 </div>
-                <div class="menu-title">Dashboard</div>
+                <div class="menu-title">Tickets</div>
             </a>
             <ul>
-                <li> <a href="index.html"><i class="bx bx-right-arrow-alt"></i>Default</a>
+                <li> <a href="{{ route('customer-tickets.index') }}"><i class="bx bx-right-arrow-alt"></i>All
+                        Tickets</a>
                 </li>
-                <li> <a href="dashboard-eCommerce.html"><i class="bx bx-right-arrow-alt"></i>eCommerce</a>
-                </li>
-                <li> <a href="dashboard-analytics.html"><i class="bx bx-right-arrow-alt"></i>Analytics</a>
-                </li>
-            </ul>
-        </li>
 
-        <li>
-            <a href="faq.html">
-                <div class="parent-icon"><i class="bx bx-help-circle"></i>
-                </div>
-                <div class="menu-title">FAQ</div>
-            </a>
+            </ul>
         </li>
 
     </ul>
