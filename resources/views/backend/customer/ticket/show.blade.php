@@ -65,6 +65,12 @@
                                 <option value="in-progress"
                                     {{ $latestAdminTicket && $latestAdminTicket->status === 'in-progress' ? 'selected' : '' }}>
                                     In-progress</option>
+                                <option value="in-progress"
+                                    {{ $latestAdminTicket && $latestAdminTicket->status === 'pending' ? 'selected' : '' }}>
+                                    Pending</option>
+                                <option value="in-progress"
+                                    {{ $latestAdminTicket && $latestAdminTicket->status === 'done' ? 'selected' : '' }}>
+                                    Done</option>
                             </select>
                             @error('status')
                                 <span class="text-danger">{{ $message }}</span>

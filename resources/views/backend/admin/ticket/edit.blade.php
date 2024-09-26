@@ -49,7 +49,7 @@
                             <div class="col-12">
                                 <label for="inputAddress" class="form-label">Add review <span
                                         class="text-secondary">[Optional]</span></label>
-                                <textarea class="form-control" id="inputAddress" placeholder="Description" name="review" rows="4"> {{ old('review') }} </textarea>
+                                <textarea class="form-control" id="inputAddress" placeholder="Add a review" name="review" rows="4">{{ old('review', $latestAdminTicket->review ?? '') }}</textarea>
                                 @error('review')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
@@ -60,10 +60,19 @@
                                         class="text-danger">*</span></label>
                                 <select id="inputState" class="form-select" name="status" required>
                                     <option selected="" value="" disabled>Select Status</option>
-                                    <option value="pending">Pending</option>
-                                    <option value="open">Open</option>
-                                    <option value="closed">Closed</option>
-                                    <option value="in-progress">In-progress</option>
+                                    <option value="pending"
+                                        {{ old('status', $currentStatus) == 'pending' ? 'selected' : '' }}>Pending
+                                    </option>
+                                    <option value="open" {{ old('status', $currentStatus) == 'open' ? 'selected' : '' }}>
+                                        Open</option>
+                                    <option value="closed"
+                                        {{ old('status', $currentStatus) == 'closed' ? 'selected' : '' }}>Closed</option>
+                                    <option value="in-progress"
+                                        {{ old('status', $currentStatus) == 'in-progress' ? 'selected' : '' }}>In-progress
+                                    </option>
+                                    <option value="done" {{ old('status', $currentStatus) == 'done' ? 'selected' : '' }}>
+                                        Done
+                                    </option>
                                 </select>
                                 @error('status')
                                     <span class="text-danger">{{ $message }}</span>

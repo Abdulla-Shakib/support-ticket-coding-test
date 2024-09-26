@@ -56,17 +56,21 @@
 
                                         <td>{{ Str::limit($item->description, 20) }}</td>
                                         <td> {{ $item->created_at->format('d M Y, h:i A') }} </td>
+
                                         <td>
-                                            <span
-                                                class="
-                                                @if (!$item->latestAdminTicket) badge bg-secondary  
-                                                @elseif ($item->latestAdminTicket->status == 'open') 
-                                                    badge bg-success 
-                                                @elseif ($item->latestAdminTicket->status == 'in-progress') 
-                                                    badge bg-warning 
-                                                @else 
-                                                    badge bg-danger @endif">
-                                                {{ !$item->latestAdminTicket ? 'Pending' : ucfirst($item->latestAdminTicket->status) }}
+                                            @php
+                                                $status = optional($item->latestAdminTicket)->status ?? 'No Status';
+                                                $badgeClass = match ($status) {
+                                                    'pending' => 'badge bg-secondary',
+                                                    'open' => 'badge bg-info',
+                                                    'in-progress' => 'badge bg-warning',
+                                                    'closed' => 'badge bg-danger',
+                                                    'done' => 'badge bg-success',
+                                                    default => 'badge bg-light',
+                                                };
+                                            @endphp
+                                            <span class="{{ $badgeClass }}">
+                                                {{ ucfirst($status) }}
                                             </span>
                                         </td>
 

@@ -16,6 +16,7 @@ class AdminTicketController extends Controller
     public function index(Request $request)
     {
         $customer_tickets = CustomerTicket::searchAdmin($request)->latest()->paginate(10);
+
         return view('backend.admin.ticket.index', compact('customer_tickets'));
     }
 
@@ -40,8 +41,9 @@ class AdminTicketController extends Controller
      */
     public function show($id)
     {
-        $customer_ticket = CustomerTicket::findorFail($id);
-        return view('backend.admin.ticket.show', compact('customer_ticket'));
+        $customer_ticket = CustomerTicket::with('latestAdminTicket')->findOrFail($id);
+        $latestAdminTicket = $customer_ticket->latestAdminTicket;
+        return view('backend.admin.ticket.show', compact('customer_ticket', 'latestAdminTicket'));
     }
 
     /**
@@ -49,8 +51,11 @@ class AdminTicketController extends Controller
      */
     public function edit($id)
     {
-        $customer_ticket = CustomerTicket::findorFail($id);
-        return view('backend.admin.ticket.edit', compact('customer_ticket'));
+        $customer_ticket = CustomerTicket::with('latestAdminTicket')->findOrFail($id);
+        $latestAdminTicket = $customer_ticket->latestAdminTicket;
+        $currentStatus = $latestAdminTicket ? $latestAdminTicket->status : null;
+
+        return view('backend.admin.ticket.edit', compact('customer_ticket', 'latestAdminTicket', 'currentStatus'));
     }
 
     /**

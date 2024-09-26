@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Customer;
 
+use App\Models\AdminTicket;
 use Illuminate\Http\Request;
 use App\Models\CustomerTicket;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
 use Brian2694\Toastr\Facades\Toastr;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB; // For transaction management
 
 class CustomerTicketController extends Controller
 {
@@ -38,6 +40,8 @@ class CustomerTicketController extends Controller
      */
     public function store(Request $request, CustomerTicket $customerTicket)
     {
+        DB::beginTransaction();
+
         try {
             $requestedData = $request->validate([
                 'subject' => 'required',
@@ -47,9 +51,20 @@ class CustomerTicketController extends Controller
             $requestedData['user_id'] = Auth::id();
 
             $requestedData = $customerTicket->fill($requestedData)->save();
+
+            AdminTicket::create([
+                'customer_ticket_id' => $customerTicket->id,
+                'review' => null,
+                'status' => 'pending',
+            ]);
+
+            DB::commit();
+
             Toastr::success('Inserted successfully');
             return redirect()->route('customer-tickets.index');
         } catch (\Throwable $e) {
+            DB::rollBack();
+
             dd($e->getmessage());
             // Toastr::error('Something went wrong');
             return redirect()->back();
