@@ -58,6 +58,42 @@
             margin: 20px 0;
             border-radius: 5px;
         }
+
+        .status {
+            padding: 10px;
+            border-radius: 5px;
+            text-align: center;
+            margin: 15px 0;
+            color: #fff;
+            /* White text for contrast */
+        }
+
+        .status.pending {
+            background-color: #6c757d;
+            /* bg-secondary */
+        }
+
+        .status.open {
+            background-color: #17a2b8;
+            /* bg-info */
+        }
+
+        .status.in-progress {
+            background-color: #ffc107;
+            /* bg-warning */
+            color: #333;
+            /* Dark text for better readability */
+        }
+
+        .status.closed {
+            background-color: #dc3545;
+            /* bg-danger */
+        }
+
+        .status.done {
+            background-color: #28a745;
+            /* bg-success */
+        }
     </style>
 </head>
 
@@ -71,6 +107,9 @@
             <div class="ticket-info">
                 <p><strong>Subject:</strong> {{ $ticket->subject ?? 'No Subject' }}</p>
                 <p><strong>Description:</strong> {{ $ticket->description ?? 'No Description' }}</p>
+            </div>
+            <div class="status {{ strtolower($status) }}">
+                Status: <strong>{{ ucfirst($status) }}</strong>
             </div>
             <p>Thank you for using our application!</p>
         </div>

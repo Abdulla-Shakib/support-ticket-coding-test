@@ -72,8 +72,9 @@ class CustomerTicketController extends Controller
 
             $user = Auth::user();
             $user_name = $user->name;
+            $status = 'pending';
 
-            Notification::send($user, new MailNotification($ticket, $user_name));
+            Notification::send($user, new MailNotification($ticket, $user_name, $status));
 
             DB::commit();
 
