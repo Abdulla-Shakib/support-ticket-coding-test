@@ -22,10 +22,11 @@
                 <div class="card border-top border-0 border-4 border-primary">
                     <div class="card-body">
                         <div class="row justify-content-end">
-                            <div class="col-md-5 mr-auto">
+                            <div class="col-md-6 mr-auto">
                                 <form method="GET" action="{{ route('admin-tickets.index') }}">
                                     <div class="input-group mb-3">
-                                        <input type="search" name="search" class="form-control" placeholder="search"
+                                        <input type="search" name="search" class="form-control"
+                                            placeholder="Search by phone number/name/subject/description"
                                             value="{{ old('search', request()->query('search')) }}">
                                         <button type="submit" class="btn btn-success">Submit</button>
                                         <a href="{{ request()->url() }}" class="btn btn-secondary">
@@ -51,7 +52,7 @@
                                 @forelse ($customer_tickets as $item)
                                     <tr>
                                         <td class="text-truncate">{{ serialNumber($customer_tickets, $loop) }}</td>
-                                        <td>{{ $item->user->name }}</td>
+                                        <td>{{ $item->user->name }}({{ $item->user->phoneNumber }})</td>
                                         <td>{{ $item->subject }}</td>
                                         <td>{{ Str::limit($item->description, 20) }}</td>
                                         <td>

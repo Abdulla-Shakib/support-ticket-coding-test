@@ -15,18 +15,21 @@ class UserSeeder extends Seeder
     {
         // admin
         User::factory()->create([
+            'type' => 'admin',
             'name' => 'Admin',
             'email' => 'admin@gmail.com',
             'password' => bcrypt('admin@gmail.com'),
-            'type' => 'admin',
+            'phoneNumber' => '01777777777',
         ]);
 
         // customer
         User::factory()->create([
+            'type' => 'customer',
             'name' => 'Customer',
             'email' => 'customer@gmail.com',
             'password' => bcrypt('customer@gmail.com'),
-            'type' => 'customer',
+            'phoneNumber' => '01111111111',
+
         ]);
     }
 }

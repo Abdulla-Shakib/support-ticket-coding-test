@@ -43,7 +43,7 @@ class MailNotification extends Notification implements ShouldQueue
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
-            ->subject('New Ticket Notification')
+            ->subject('Support Ticket Notification')
             ->view('emails.ticket_notification', [
                 'ticket' => $this->ticket,
                 'user_name' => $this->user_name,

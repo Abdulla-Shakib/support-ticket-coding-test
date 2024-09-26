@@ -23,7 +23,8 @@ class CustomerTicket extends Model
         return $query->where('subject', 'LIKE', '%' . $request->search . '%')
             ->orWhere('description', 'LIKE', '%' . $request->search . '%')
             ->orWhereHas('user', function ($q) use ($request) {
-                $q->where('name', 'LIKE', '%' . $request->search . '%');
+                $q->where('name', 'LIKE', '%' . $request->search . '%')
+                    ->orWhere('phoneNumber', 'LIKE', '%' . $request->search . '%');
             });
     }
 
