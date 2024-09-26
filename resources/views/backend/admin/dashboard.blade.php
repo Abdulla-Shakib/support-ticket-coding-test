@@ -3,6 +3,22 @@
 @section('content')
     <div class="page-content">
         <div class="row row-cols-1 row-cols-md-2 row-cols-xl-4">
+
+            <div class="col">
+                <div class="card radius-10">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center">
+                            <h5 class="mb-0 text-primary">
+                                {{ $counts['pending'] + $counts['open'] + $counts['in-progress'] + $counts['done'] + $counts['closed'] }}
+                            </h5>
+                        </div>
+                        <div class="d-flex align-items-center">
+                            <p class="mb-0 text-primary">Total</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div class="col">
                 <div class="card radius-10 ">
                     <div class="card-body">
