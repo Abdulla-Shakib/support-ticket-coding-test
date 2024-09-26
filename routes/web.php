@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Admin\AdminTicketController;
 use App\Http\Controllers\Customer\CustomerTicketController;
 
 /*
@@ -16,6 +17,7 @@ use App\Http\Controllers\Customer\CustomerTicketController;
 */
 
 Route::get('/', function () {
+    // return view('login');
     return view('backend.layouts.index');
 });
 
@@ -30,15 +32,13 @@ Route::middleware('auth')->group(function () {
 });
 
 
-// Route::middleware(['admin'])->group(function () {
-//     Route::get('/admin/tickets', [AdminTicketController::class, 'index']); // Admin-specific routes
-//     Route::post('/admin/tickets/respond/{ticket}', [AdminTicketController::class, 'respond']);
-//     Route::post('/admin/tickets/close/{ticket}', [AdminTicketController::class, 'close']);
-// });
+Route::middleware(['admin'])->group(function () {
+    Route::resource('admin-tickets', AdminTicketController::class);
+});
 
-// Route::middleware(['customer'])->group(function () {
-Route::resource('customer-tickets', CustomerTicketController::class);
-// });
+Route::middleware(['customer'])->group(function () {
+    Route::resource('customer-tickets', CustomerTicketController::class);
+});
 
 
 

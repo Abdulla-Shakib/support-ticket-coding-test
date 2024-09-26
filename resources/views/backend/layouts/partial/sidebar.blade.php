@@ -11,19 +11,25 @@
     </div>
     <!--navigation-->
     <ul class="metismenu" id="menu">
-        <li>
-            <a href="javascript:;" class="has-arrow">
-                <div class="parent-icon"><i class='bx bxs-graduation'></i>
-                </div>
-                <div class="menu-title">Tickets</div>
-            </a>
-            <ul>
-                <li> <a href="{{ route('customer-tickets.index') }}"><i class="bx bx-right-arrow-alt"></i>All
-                        Tickets</a>
-                </li>
 
-            </ul>
-        </li>
+        <!-- Show only for Admin -->
+        @if (auth()->user()->type === 'admin')
+            <li>
+                <a href="{{ route('admin-tickets.index') }}">
+                    <i class="bx bx-right-arrow-alt"></i> All Tickets
+                </a>
+            </li>
+        @endif
+
+        <!-- Show only for Customer -->
+        @if (auth()->user()->type === 'customer')
+            <li>
+                <a href="{{ route('customer-tickets.index') }}">
+                    <i class="bx bx-right-arrow-alt"></i> All Tickets
+                </a>
+            </li>
+        @endif
+
 
     </ul>
     <!--end navigation-->
