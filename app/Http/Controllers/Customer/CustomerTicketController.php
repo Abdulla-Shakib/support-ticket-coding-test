@@ -30,7 +30,6 @@ class CustomerTicketController extends Controller
             ->with('latestAdminTicket')
             ->latest()
             ->paginate(10);
-        // return $tickets;
 
         return view('backend.customer.ticket.index', compact('tickets'));
     }

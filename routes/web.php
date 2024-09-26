@@ -17,20 +17,14 @@ use App\Http\Controllers\Customer\CustomerTicketController;
 */
 
 Route::get('/', function () {
-    // return view('login');
-    return view('backend.layouts.index');
+    return view('auth.login');
 });
-
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
-
 
 Route::middleware(['admin'])->group(function () {
     Route::get('/admin/dashboard', [AdminTicketController::class, 'dashboard'])->name('admin.dashboard');
@@ -41,7 +35,5 @@ Route::middleware(['customer'])->group(function () {
     Route::get('/customer/dashboard', [CustomerTicketController::class, 'dashboard'])->name('customer.dashboard');
     Route::resource('customer-tickets', CustomerTicketController::class);
 });
-
-
 
 require __DIR__ . '/auth.php';
