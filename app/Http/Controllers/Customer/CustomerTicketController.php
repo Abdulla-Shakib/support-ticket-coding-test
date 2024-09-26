@@ -13,9 +13,9 @@ class CustomerTicketController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $tickets = CustomerTicket::where('user_id', auth()->id())->latest()->paginate(10);
+        $tickets = CustomerTicket::where('user_id', auth()->id())->searchCustomer($request)->latest()->paginate(10);
 
         return view('backend.customer.ticket.index', compact('tickets'));
     }
@@ -43,9 +43,7 @@ class CustomerTicketController extends Controller
 
             $requestedData = $customerTicket->fill($requestedData)->save();
             Toastr::success('Inserted successfully');
-            return redirect()->back();
-
-            // return redirect()->route('admin.book.index');
+            return redirect()->route('customer-tickets.index');
         } catch (\Throwable $e) {
             dd($e->getmessage());
             // Toastr::error('Something went wrong');

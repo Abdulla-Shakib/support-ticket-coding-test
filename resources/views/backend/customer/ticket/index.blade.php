@@ -4,13 +4,12 @@
     <div class="page-content">
         <!--breadcrumb-->
         <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
-            <div class="breadcrumb-title pe-3">Library</div>
+            <div class="breadcrumb-title pe-3">Ticket</div>
             <div class="ps-3">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb mb-0 p-0">
                         <li class="breadcrumb-item"><a href="javascript:;"><i class="bx bx-home-alt"></i></a>
                         </li>
-                        <li class="breadcrumb-item active" aria-current="page">Tickets</li>
                         <li class="breadcrumb-item active" aria-current="page">List</li>
                     </ol>
                 </nav>
@@ -54,6 +53,8 @@
                                     <th>No.</th>
                                     <th>Subject</th>
                                     <th>Description</th>
+                                    <th>Created At</th>
+                                    <th>Status</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -62,7 +63,10 @@
                                     <tr>
                                         <td class="text-truncate">{{ serialNumber($tickets, $loop) }}</td>
                                         <td>{{ $item->subject }}</td>
-                                        <td>{{ $item->description }}</td>
+
+                                        <td>{{ Str::limit($item->description, 20) }}</td>
+                                        <td> {{ $item->created_at->format('d M Y, h:i A') }} </td>
+                                        <td></td>
 
                                         {{-- <td>
                                             <span
@@ -90,6 +94,5 @@
                 </div>
             </div>
         </div>
-        <!--end row-->
     </div>
 @endsection

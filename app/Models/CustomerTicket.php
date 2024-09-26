@@ -18,17 +18,23 @@ class CustomerTicket extends Model
         'description',
     ];
 
-    public function scopeSearch($query, $request)
+    public function scopeSearchAdmin($query, $request)
     {
         return $query->where('subject', 'LIKE', '%' . $request->search . '%')
             ->orWhere('description', 'LIKE', '%' . $request->search . '%')
-            ->orWhereHas('customer', function ($q) use ($request) {
+            ->orWhereHas('user', function ($q) use ($request) {
                 $q->where('name', 'LIKE', '%' . $request->search . '%');
             });
     }
 
+    public function scopeSearchCustomer($query, $request)
+    {
+        return $query->where('subject', 'LIKE', '%' . $request->search . '%')
+            ->orWhere('description', 'LIKE', '%' . $request->search . '%')
+        ;
+    }
 
-    public function customer()
+    public function user()
     {
         return $this->belongsTo(User::class, 'user_id');
     }

@@ -60,7 +60,7 @@
                                 @forelse ($customer_tickets as $item)
                                     <tr>
                                         <td class="text-truncate">{{ serialNumber($customer_tickets, $loop) }}</td>
-                                        <td>{{ $item->customer->name }}</td>
+                                        <td>{{ $item->user->name }}</td>
                                         <td>{{ $item->subject }}</td>
                                         <td>{{ Str::limit($item->description, 20) }}</td>
                                         <td></td>

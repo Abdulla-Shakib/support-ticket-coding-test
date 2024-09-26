@@ -15,7 +15,7 @@ class AdminTicketController extends Controller
      */
     public function index(Request $request)
     {
-        $customer_tickets = CustomerTicket::search($request)->latest()->paginate(10);
+        $customer_tickets = CustomerTicket::searchAdmin($request)->latest()->paginate(10);
         return view('backend.admin.ticket.index', compact('customer_tickets'));
     }
 
@@ -69,7 +69,7 @@ class AdminTicketController extends Controller
             AdminTicket::create($requestedData);
 
             Toastr::success('Successfully');
-            return redirect()->back();
+            return redirect()->route('admin-tickets.index');
         } catch (\Throwable $th) {
             \alert('error', 'Something went wrong');
             return \redirect()->back();
