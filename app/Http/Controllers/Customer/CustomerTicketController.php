@@ -15,7 +15,12 @@ class CustomerTicketController extends Controller
      */
     public function index(Request $request)
     {
-        $tickets = CustomerTicket::where('user_id', auth()->id())->searchCustomer($request)->latest()->paginate(10);
+        $tickets = CustomerTicket::where('user_id', auth()->id())
+            ->searchCustomer($request)
+            ->with('latestAdminTicket')
+            ->latest()
+            ->paginate(10);
+        // return $tickets;
 
         return view('backend.customer.ticket.index', compact('tickets'));
     }

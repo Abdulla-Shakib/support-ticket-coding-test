@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('customer_ticket_id')->constrained()->onDelete('cascade');
             $table->string('review')->nullable();
-            $table->enum('status', ['open', 'closed', 'in-progress'])->default('open');
+            $table->enum('status', ['pending', 'open', 'closed', 'in-progress'])->default('pending');
             $table->timestamps();
         });
     }

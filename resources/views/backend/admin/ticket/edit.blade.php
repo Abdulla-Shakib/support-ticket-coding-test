@@ -60,6 +60,7 @@
                                         class="text-danger">*</span></label>
                                 <select id="inputState" class="form-select" name="status" required>
                                     <option selected="" value="" disabled>Select Status</option>
+                                    <option value="pending">Pending</option>
                                     <option value="open">Open</option>
                                     <option value="closed">Closed</option>
                                     <option value="in-progress">In-progress</option>

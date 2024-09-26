@@ -17,4 +17,9 @@ class AdminTicket extends Model
         'review',
         'status',
     ];
+
+    public function customerTicket()
+    {
+        return $this->belongsTo(CustomerTicket::class, 'customer_ticket_id', 'id');
+    }
 }

@@ -66,13 +66,20 @@
 
                                         <td>{{ Str::limit($item->description, 20) }}</td>
                                         <td> {{ $item->created_at->format('d M Y, h:i A') }} </td>
-                                        <td></td>
-
-                                        {{-- <td>
+                                        <td>
                                             <span
-                                                class="{{ $book->status == '1' ? 'badge bg-success' : 'badge bg-danger' }}">{{ $book->status == '1' ? 'Active' : 'Inactive' }}
+                                                class="
+                                                @if (!$item->latestAdminTicket) badge bg-secondary  
+                                                @elseif ($item->latestAdminTicket->status == 'open') 
+                                                    badge bg-success 
+                                                @elseif ($item->latestAdminTicket->status == 'in-progress') 
+                                                    badge bg-warning 
+                                                @else 
+                                                    badge bg-danger @endif">
+                                                {{ !$item->latestAdminTicket ? 'Pending' : ucfirst($item->latestAdminTicket->status) }}
                                             </span>
-                                        </td> --}}
+                                        </td>
+
                                         <td class="text-truncate">
                                             <a class="text-secondary"
                                                 href="{{ route('customer-tickets.show', $item->id) }}">
@@ -83,7 +90,7 @@
                                 @empty
                                     <tr class="text-center">
                                         <td colspan="9">
-                                            <h5 class="font-weight-bold">No Message available</h5>
+                                            <h5 class="font-weight-bold">No Data available</h5>
                                         </td>
                                     </tr>
                                 @endforelse

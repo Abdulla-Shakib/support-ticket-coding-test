@@ -79,7 +79,7 @@
                                 @empty
                                     <tr class="text-center">
                                         <td colspan="9">
-                                            <h5 class="font-weight-bold">No Message available</h5>
+                                            <h5 class="font-weight-bold">No Data available</h5>
                                         </td>
                                     </tr>
                                 @endforelse

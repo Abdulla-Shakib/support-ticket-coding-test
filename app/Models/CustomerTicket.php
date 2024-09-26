@@ -38,4 +38,9 @@ class CustomerTicket extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
+
+    public function latestAdminTicket()
+    {
+        return $this->hasOne(AdminTicket::class, 'customer_ticket_id', 'id')->latest();
+    }
 }
