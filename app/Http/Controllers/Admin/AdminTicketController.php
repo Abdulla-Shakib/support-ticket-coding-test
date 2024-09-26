@@ -6,12 +6,11 @@ use App\Models\User;
 use App\Models\AdminTicket;
 use Illuminate\Http\Request;
 use App\Models\CustomerTicket;
-use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Services\TicketCountService;
 use Brian2694\Toastr\Facades\Toastr;
 use App\Notifications\MailNotification;
-use Illuminate\Support\Facades\Notification; // Ensure this is at the top of your file
+use Illuminate\Support\Facades\Notification;
 
 class AdminTicketController extends Controller
 {

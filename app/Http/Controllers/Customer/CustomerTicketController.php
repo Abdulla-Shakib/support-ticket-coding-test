@@ -11,8 +11,8 @@ use App\Services\TicketCountService;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\Auth;
 use App\Notifications\MailNotification;
-use Illuminate\Support\Facades\DB; // For transaction management
-use Illuminate\Support\Facades\Notification; // Ensure this is at the top of your file
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Notification;
 
 class CustomerTicketController extends Controller
 {

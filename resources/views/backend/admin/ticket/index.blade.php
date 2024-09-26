@@ -25,17 +25,8 @@
                             <div class="col-md-5 mr-auto">
                                 <form method="GET" action="{{ route('admin-tickets.index') }}">
                                     <div class="input-group mb-3">
-                                        {{-- <select class="form-select" id="exampleFormControlSelect1" name="category"
-                                            aria-label="Default select example">
-                                            <option value selected>Select Category</option>
-                                            @foreach ($categories as $category)
-                                                <option value="{{ $category->id }}"
-                                                    {{ request()->get('category') == $category->id ? 'selected' : '' }}
-                                                    {{ old('category') == $category->id ? 'selected' : '' }}>
-                                                    {{ $category->name }}</option>
-                                            @endforeach
-                                        </select> --}}
-                                        <input type="search" name="search" class="form-control" placeholder="search">
+                                        <input type="search" name="search" class="form-control" placeholder="search"
+                                            value="{{ old('search', request()->query('search')) }}">
                                         <button type="submit" class="btn btn-success">Submit</button>
                                         <a href="{{ request()->url() }}" class="btn btn-secondary">
                                             Clear
