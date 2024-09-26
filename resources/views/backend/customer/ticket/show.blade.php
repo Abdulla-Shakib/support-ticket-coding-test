@@ -54,10 +54,17 @@
                         <div class="col-md-6">
                             <label for="inputStatus" class="form-label">Status <span class="text-danger">*</span></label>
                             <select id="inputState" class="form-select" name="status" disabled>
-                                <option selected="" value="" disabled>Select Status</option>
-                                <option value="open">Open</option>
-                                <option value="closed">Closed</option>
-                                <option value="in-progress">In-progress</option>
+                                <option selected value="" disabled>Select Status</option>
+                                <option value="pending" {{ !$latestAdminTicket ? 'selected' : '' }}>Pending</option>
+                                <option value="open"
+                                    {{ $latestAdminTicket && $latestAdminTicket->status === 'open' ? 'selected' : '' }}>Open
+                                </option>
+                                <option value="closed"
+                                    {{ $latestAdminTicket && $latestAdminTicket->status === 'closed' ? 'selected' : '' }}>
+                                    Closed</option>
+                                <option value="in-progress"
+                                    {{ $latestAdminTicket && $latestAdminTicket->status === 'in-progress' ? 'selected' : '' }}>
+                                    In-progress</option>
                             </select>
                             @error('status')
                                 <span class="text-danger">{{ $message }}</span>

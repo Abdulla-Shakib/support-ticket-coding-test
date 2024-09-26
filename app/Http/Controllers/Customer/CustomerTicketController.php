@@ -61,8 +61,9 @@ class CustomerTicketController extends Controller
      */
     public function show($id)
     {
-        $customer_ticket = CustomerTicket::findorFail($id);
-        return view('backend.customer.ticket.show', compact('customer_ticket'));
+        $customer_ticket = CustomerTicket::with('latestAdminTicket')->findOrFail($id);
+        $latestAdminTicket = $customer_ticket->latestAdminTicket;
+        return view('backend.customer.ticket.show', compact('customer_ticket', 'latestAdminTicket'));
     }
 
     /**
