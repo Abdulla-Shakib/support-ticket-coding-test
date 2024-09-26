@@ -67,8 +67,7 @@
                                         <td> {{ $item->created_at->format('d M Y, h:i A') }} </td>
 
                                         <td class="text-truncate">
-                                            <a class="text-secondary"
-                                                href="{{ route('customer-tickets.show', $item->id) }}">
+                                            <a class="text-secondary" href="{{ route('admin-tickets.show', $item->id) }}">
                                                 <i class="fadeIn animated bx bx-message-square-detail"></i>
                                             </a>
 

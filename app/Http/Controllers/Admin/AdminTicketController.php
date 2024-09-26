@@ -38,9 +38,10 @@ class AdminTicketController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(AdminTicket $adminTicket)
+    public function show($id)
     {
-        //
+        $customer_ticket = CustomerTicket::findorFail($id);
+        return view('backend.admin.ticket.show', compact('customer_ticket'));
     }
 
     /**

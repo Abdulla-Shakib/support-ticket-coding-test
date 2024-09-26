@@ -54,9 +54,10 @@ class CustomerTicketController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(CustomerTicket $customerTicket)
+    public function show($id)
     {
-        //
+        $customer_ticket = CustomerTicket::findorFail($id);
+        return view('backend.customer.ticket.show', compact('customer_ticket'));
     }
 
     /**
