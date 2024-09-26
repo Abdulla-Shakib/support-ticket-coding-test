@@ -53,7 +53,7 @@ php artisan serve
 # 8. Compile Assets for Development
 npm run dev
 
-# 0. Run Queue Jobs
+# 9. Run Queue Jobs
 php artisan queue:listen
 
 ```
