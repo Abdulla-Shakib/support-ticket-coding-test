@@ -6,12 +6,20 @@ use App\Models\AdminTicket;
 use Illuminate\Http\Request;
 use App\Models\CustomerTicket;
 use App\Http\Controllers\Controller;
+use App\Services\TicketCountService;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB; // For transaction management
 
 class CustomerTicketController extends Controller
 {
+    protected $countTickets;
+
+    public function __construct(TicketCountService $countTickets)
+    {
+        $this->countTickets = $countTickets;
+    }
+
     /**
      * Display a listing of the resource.
      */
@@ -103,5 +111,13 @@ class CustomerTicketController extends Controller
     public function destroy(CustomerTicket $customerTicket)
     {
         //
+    }
+
+    public function dashboard()
+    {
+        $customerTickets = CustomerTicket::where('user_id', auth()->id())->with('latestAdminTicket')->get();
+        $counts =  $this->countTickets->countStatuses($customerTickets);
+
+        return view('backend.customer.dashboard', compact('counts'));
     }
 }

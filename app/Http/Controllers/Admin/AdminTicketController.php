@@ -5,11 +5,20 @@ namespace App\Http\Controllers\Admin;
 use App\Models\AdminTicket;
 use Illuminate\Http\Request;
 use App\Models\CustomerTicket;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Services\TicketCountService;
 use Brian2694\Toastr\Facades\Toastr;
 
 class AdminTicketController extends Controller
 {
+    protected $countTickets;
+
+    public function __construct(TicketCountService $countTickets)
+    {
+        $this->countTickets = $countTickets;
+    }
+
     /**
      * Display a listing of the resource.
      */
@@ -88,5 +97,13 @@ class AdminTicketController extends Controller
     public function destroy(AdminTicket $adminTicket)
     {
         //
+    }
+
+    public function dashboard()
+    {
+        $customerTickets = CustomerTicket::with('latestAdminTicket')->get();
+        $counts =  $this->countTickets->countStatuses($customerTickets);
+
+        return view('backend.admin.dashboard', compact('counts'));
     }
 }

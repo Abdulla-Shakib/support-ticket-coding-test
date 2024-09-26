@@ -12,8 +12,13 @@
     <!--navigation-->
     <ul class="metismenu" id="menu">
 
-        <!-- Show only for Admin -->
+        <!-- Admin -->
         @if (auth()->user()->type === 'admin')
+            <li>
+                <a href="{{ route('admin.dashboard') }}">
+                    <i class="bx bx-right-arrow-alt"></i> Dashboard
+                </a>
+            </li>
             <li>
                 <a href="{{ route('admin-tickets.index') }}">
                     <i class="bx bx-right-arrow-alt"></i> All Tickets
@@ -21,9 +26,12 @@
             </li>
         @endif
 
-        <!-- Show only for Customer -->
+        <!-- Customer -->
         @if (auth()->user()->type === 'customer')
             <li>
+                <a href="{{ route('customer.dashboard') }}">
+                    <i class="bx bx-right-arrow-alt"></i> Dashboard
+                </a>
                 <a href="{{ route('customer-tickets.index') }}">
                     <i class="bx bx-right-arrow-alt"></i> All Tickets
                 </a>

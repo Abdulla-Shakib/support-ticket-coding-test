@@ -41,6 +41,7 @@ class CustomerTicket extends Model
 
     public function latestAdminTicket()
     {
-        return $this->hasOne(AdminTicket::class, 'customer_ticket_id', 'id')->latest();
+        return $this->hasOne(AdminTicket::class, 'customer_ticket_id', 'id')
+            ->orderBy('created_at', 'desc');
     }
 }

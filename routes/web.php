@@ -33,10 +33,12 @@ Route::middleware('auth')->group(function () {
 
 
 Route::middleware(['admin'])->group(function () {
+    Route::get('/admin/dashboard', [AdminTicketController::class, 'dashboard'])->name('admin.dashboard');
     Route::resource('admin-tickets', AdminTicketController::class);
 });
 
 Route::middleware(['customer'])->group(function () {
+    Route::get('/customer/dashboard', [CustomerTicketController::class, 'dashboard'])->name('customer.dashboard');
     Route::resource('customer-tickets', CustomerTicketController::class);
 });
 
