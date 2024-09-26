@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\User;
 use App\Models\AdminTicket;
 use Illuminate\Http\Request;
 use App\Models\CustomerTicket;
@@ -9,6 +10,8 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Services\TicketCountService;
 use Brian2694\Toastr\Facades\Toastr;
+use App\Notifications\MailNotification;
+use Illuminate\Support\Facades\Notification; // Ensure this is at the top of your file
 
 class AdminTicketController extends Controller
 {
@@ -81,7 +84,12 @@ class AdminTicketController extends Controller
 
             $requestedData['customer_ticket_id'] = $id;
 
-            AdminTicket::create($requestedData);
+            $ticket =  AdminTicket::create($requestedData);
+
+            $customerTicket = CustomerTicket::with('user')->findOrFail($id);
+            $user = User::findOrFail($customerTicket->user_id);
+
+            Notification::send($user, new MailNotification($ticket, $user->name, $request->status, $request->review));
 
             Toastr::success('Successfully');
             return redirect()->route('admin-tickets.index');

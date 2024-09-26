@@ -25,12 +25,12 @@
         .header {
             background-color: #007bff;
             color: white;
-            padding: 20px;
+            padding: 5px;
             text-align: center;
         }
 
         .content {
-            padding: 20px;
+            padding: 10px;
         }
 
         .content h1 {
@@ -65,34 +65,35 @@
             text-align: center;
             margin: 15px 0;
             color: #fff;
-            /* White text for contrast */
         }
 
         .status.pending {
             background-color: #6c757d;
-            /* bg-secondary */
         }
 
         .status.open {
             background-color: #17a2b8;
-            /* bg-info */
         }
 
         .status.in-progress {
             background-color: #ffc107;
-            /* bg-warning */
             color: #333;
-            /* Dark text for better readability */
         }
 
         .status.closed {
             background-color: #dc3545;
-            /* bg-danger */
         }
 
         .status.done {
             background-color: #28a745;
-            /* bg-success */
+        }
+
+        .review-info {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 10px;
+            border-left: 4px solid #11ff00;
         }
     </style>
 </head>
@@ -100,10 +101,10 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>Ticket Notification</h1>
+            <h2>Ticket Notification</h2>
         </div>
         <div class="content">
-            <h1>Hello {{ $user_name }},</h1>
+            <h2>Hello {{ $user_name }},</h2>
             <div class="ticket-info">
                 <p><strong>Subject:</strong> {{ $ticket->subject ?? 'No Subject' }}</p>
                 <p><strong>Description:</strong> {{ $ticket->description ?? 'No Description' }}</p>
@@ -111,6 +112,14 @@
             <div class="status {{ strtolower($status) }}">
                 Status: <strong>{{ ucfirst($status) }}</strong>
             </div>
+
+            @if (!empty($review))
+                <div class="review-info">
+                    <h3 style="margin-bottom: 10px;">Review</h3>
+                    <p>{{ $review }}</p>
+                </div>
+            @endif
+
             <p>Thank you for using our application!</p>
         </div>
         <div class="footer">

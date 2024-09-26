@@ -14,16 +14,17 @@ class MailNotification extends Notification implements ShouldQueue
     public $ticket;
     public $user_name;
     public $status;
-
+    public $review;
 
     /**
      * Create a new notification instance.
      */
-    public function __construct($ticket, $user_name, $status)
+    public function __construct($ticket, $user_name, $status, $review)
     {
         $this->ticket = $ticket;
         $this->user_name = $user_name;
         $this->status = $status;
+        $this->review = $review;
     }
 
     /**
@@ -47,6 +48,7 @@ class MailNotification extends Notification implements ShouldQueue
                 'ticket' => $this->ticket,
                 'user_name' => $this->user_name,
                 'status' => $this->status,
+                'review' => $this->review,
             ]);
     }
 
