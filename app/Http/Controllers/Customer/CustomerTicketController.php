@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Customer;
 
+use App\Models\User;
 use App\Models\AdminTicket;
 use Illuminate\Http\Request;
 use App\Models\CustomerTicket;
@@ -9,7 +10,9 @@ use App\Http\Controllers\Controller;
 use App\Services\TicketCountService;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\Auth;
+use App\Notifications\MailNotification;
 use Illuminate\Support\Facades\DB; // For transaction management
+use Illuminate\Support\Facades\Notification; // Ensure this is at the top of your file
 
 class CustomerTicketController extends Controller
 {
@@ -57,13 +60,20 @@ class CustomerTicketController extends Controller
 
             $requestedData['user_id'] = Auth::id();
 
-            $requestedData = $customerTicket->fill($requestedData)->save();
+            $customerTicket->fill($requestedData)->save();
 
             AdminTicket::create([
                 'customer_ticket_id' => $customerTicket->id,
                 'review' => null,
                 'status' => 'pending',
             ]);
+
+            $ticket = $customerTicket;
+
+            $user = Auth::user();
+            $user_name = $user->name;
+
+            Notification::send($user, new MailNotification($ticket, $user_name));
 
             DB::commit();
 
